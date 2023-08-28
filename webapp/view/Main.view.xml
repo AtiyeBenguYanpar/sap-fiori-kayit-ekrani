@@ -1,0 +1,137 @@
+<mvc:View controllerName="com.solvia.project2.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:l="sap.ui.layout"  
+    xmlns:f="sap.ui.layout.form">
+    <Page id="page" title="{i18n>title}" showHeader="false">
+        <content>
+        <l:VerticalLayout width="100%">
+            <fb:FilterBar reset="onReset" filterContainerWidth="20rem" search="onSearch" showRestoreButton="false" showClearButton="false">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="Filtre" partOfCurrentVariant="true" visibleInFilterBar="true">
+                        <fb:control>
+                            <ToolbarSpacer/>
+
+                        <SearchField ariaLabelledBy="text1" id="maxPrice" liveChange="onFilter">
+                            <layoutData><OverflowToolbarLayoutData maxWidth="300px" shrinkable="true" priority="NeverOverflow"/></layoutData>
+                        </SearchField>
+                        
+                        </fb:control>
+                    </fb:FilterGroupItem>   
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>secim}" partOfCurrentVariant="true" visibleInFilterBar="true">
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+        </l:VerticalLayout>
+
+    <!-- <VBox class="sapUiSmallMargin">
+        <f:SimpleForm id="SimpleFormToolbar"
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="4"
+            labelSpanL="3"
+            labelSpanM="4"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="0"
+            emptySpanL="4"
+            emptySpanM="0"
+            emptySpanS="0"
+            columnsXL="2"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="false"
+            ariaLabelledBy="Title1" >
+    <f:content>
+                <Label text="Ad" />
+                <Input id="idAd" value="{SupplierName}" />
+
+                <Label text="Soyad" />
+                <Input id="idSoyad" value="{SupplierName}" />
+ 
+                <Label text="Fakülte" />
+
+                <Select id="idFakulte"
+				items="{globalModel>/FakulteList}"> 
+				<core:Item key="{globalModel>key}" text="{globalModel>text}" />
+			    </Select>
+
+                <Label text="Bölüm" />
+                <Input id="idBolum" value="{SupplierName}" />
+
+              <Button  text="Temizle" press="onRefresh" type="Accept" />
+              <Button type="Reject" text="Kaydet" press="onSave" />
+        </f:content>
+      </f:SimpleForm>
+        </VBox> -->
+        <Table id="idStudents"
+        inset="false"
+        mode="SingleSelectLeft"
+        items="{
+            path: 'globalModel>/List'
+        }">
+        <headerToolbar>
+            <OverflowToolbar >
+                <ToolbarSpacer ></ToolbarSpacer>
+              <!-- NEW BUTTON -->
+                 <Button text="Yeni Kayıt" icon="sap-icon://add-employee" press="onOpenDialogNewButton" type="Emphasized"  />
+                  <Button
+            id="helloDialogButton"   text="Düzenle" icon="sap-icon://edit" press=".onOpenDialog" type="Emphasized"
+            class="sapUiSmallMarginEnd"/>
+                <Button text="Sil" icon="sap-icon://delete" press="onDeleteFinal" type="Emphasized" />
+
+                <Button text="İndir" icon="sap-icon://excel-attachment" press="onExport" type="Emphasized"/>
+
+            </OverflowToolbar>
+        </headerToolbar>
+        <columns>
+          
+            <Column
+                width="12em">
+                <Text text="Öğrenci No" />
+            </Column>
+            <Column
+                minScreenWidth="Tablet"
+                demandPopin="true">
+                <Text text="Ad" />
+            </Column>
+            <Column
+                minScreenWidth="Desktop"
+                demandPopin="true"
+                hAlign="End">
+                <Text text="Soyad" />
+            </Column>
+            <Column
+                minScreenWidth="Desktop"
+                demandPopin="true"
+                hAlign="Center">
+                <Text text="Fakülte" />
+            </Column>
+            <Column>
+                <Text text="Bölüm" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem vAlign="Middle">
+                <cells>
+                
+                    <Text
+                        text="{globalModel>OgrNo}" />
+                    <Text
+                        text="{globalModel>Isim}" />
+                    <Text
+                        text="{globalModel>Soyisim}" />
+                     <Text
+                        text="{globalModel>Fakulte}" />
+                     <Text
+                        text="{globalModel>Bolum}" />
+                </cells>
+            </ColumnListItem>
+        </items>
+
+    </Table>
+        </content>
+    </Page>
+</mvc:View>
