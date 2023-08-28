@@ -127,7 +127,7 @@ sap.ui.define([
 
             onDelete: function (oEvent) {
                 var that = this;
-                    oSelected = this.byId("idStudents").getSelectedItem()
+                var oSelected = this.byId("idStudents").getSelectedItem();
                 var oEntry = oSelected.getBindingContext("globalModel").getObject();
                 var oDataModel = this.getOwnerComponent().getModel("myOdataModel");
                 oDataModel.remove("/ogrenciListSet('" + oEntry.OgrNo + "')", {
@@ -180,7 +180,7 @@ sap.ui.define([
                 if (!this._oTable) {
                     this._oTable = this.byId('idStudents');
                 }
-    
+       
                 oTable = this._oTable;
                 oRowBinding = oTable.getBinding('items');
                 aCols = this.createColumnConfig();
@@ -262,7 +262,7 @@ sap.ui.define([
                        method:"PUT",
                         success: function (data) {
                             MessageToast.show("Başarıyla Kaydedildi");
-                           // that.onRefresh();
+                            that.onRefreshEdit();
                             that.onGetData();
                             that.onCloseDialog();
                         },
@@ -318,9 +318,9 @@ sap.ui.define([
                                 debugger;
                             MessageToast.show("Başarıyla Kaydedildi");
                             that.onRefreshNew();
-                            that.onCloseDialogButtonNew();
-                            onRefreshValueStateNew();
+                            that.onRefreshValueStateNew();
                             that.onGetData();
+                            that.onCloseDialogButtonNew();
 
                         },
                         error: function (oEvent) {
@@ -329,15 +329,18 @@ sap.ui.define([
                     })};            
                 },
             onCloseDialogButtonNew : function () {
+                var that=this;
+                that.onRefreshNew();
                 this.oDialog.close();
               },
               onRefreshNew: function () {
+                var that=this;
                 sap.ui.getCore().byId("idAd").setValue("");
                 sap.ui.getCore().byId("idSoyad").setValue("");
                 sap.ui.getCore().byId("idFakulte").setSelectedKey("");
                 sap.ui.getCore().byId("idBolum").setValue("");
                // this.onRefreshValueState();
-               onRefreshValueStateNew();
+               that.onRefreshValueStateNew();
 
               },
               onRefreshValueStateNew:function(oEvent){
@@ -357,6 +360,22 @@ sap.ui.define([
               onFilter: function (oEvent) {
                 this.sSearchQuery = oEvent.getSource().getValue();
                 this.fnApplyFiltersAndOrdering();
+              },
+              onRefreshEdit: function () {
+                var that=this;
+                sap.ui.getCore().byId("idAdEdit").setValue("");
+                sap.ui.getCore().byId("idSoyadEdit").setValue("");
+                sap.ui.getCore().byId("idFakulteEdit").setSelectedKey("");
+                sap.ui.getCore().byId("idBolumEdit").setValue("");
+               // this.onRefreshValueState();
+               that.onRefreshValueStateEdit();
+
+              },
+              onRefreshValueStateEdit:function(oEvent){
+                sap.ui.getCore().byId("idAdEdit").setValueState("None");
+                sap.ui.getCore().byId("idSoyadEdit").setValueState("None");
+                sap.ui.getCore().byId("idFakulteEdit").setValueState("None");
+                sap.ui.getCore().byId("idBolumEdit").setValueState("None");
               }
         });
     });
